@@ -1,17 +1,32 @@
-pimatic-plugin-template
+pimatic mail plugin
 =======================
 
-See the [development guide](http://pimatic.org/guide/development/required-skills-readings/) for
-usage.
+Send mails from pimatic actions. It uses [nodemailer](https://www.npmjs.org/package/nodemailer) and so supports all common mail transports.
 
-Some Tips:
+Configuration
+-------------
+You can load the backend by editing your `config.json` to include:
 
-###Adding package dependencies
-* You can add other package dependencies by running `npm install something --save`. With the `--save`
-  option npm will auto add the installed dependency in your `package.json`
-* You can always install all dependencies in the package.json with `npm install`
+    {
+      "plugin": "mail",
+      "transport": "SMTP",
+      "transportOptions": {
+        service: "Gmail", // sets automatically host, port and connection security settings
+        auth: {
+            user: "gmail.user@gmail.com",
+            pass: "userpass"
+        }
+      }
+      "to": "gmail.user@gmail.com"
+    }
 
-###Commit your changes to git
-* Add all edited files with `git add file`. For example: `git add package.json` then commit you changes 
-  with `git commit`.
-* After that you can push you commited work to github: `git push`
+in the `plugins` section. For all configuration options see [mail-config-schema](mail-config-schema.html)
+
+The transport options are transport depenedent and listed at [nodemailer](https://www.npmjs.org/package/nodemailer),
+
+Currently you can send mail message via action handler within rules.
+
+Example:
+--------
+
+    if it is 08:00 send mail to: "gmail.user@gmail.com" subject:"Good morning!" text:"Good morning Dave!"

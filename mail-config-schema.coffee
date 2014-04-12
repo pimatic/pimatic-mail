@@ -9,7 +9,7 @@ module.exports =
   transportOptions:
     doc: "The Transport options"
     format: Object
-    default: null
+    default: {}
   from: 
     doc: "default from e-mail address"
     format: String

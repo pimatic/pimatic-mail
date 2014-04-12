@@ -36,7 +36,7 @@ module.exports = (env) ->
         @conf.get("transportOptions")
       )
       
-      @framework.ruleManager.addActionProvider(new MailActionProvider @framework)
+      @framework.ruleManager.addActionProvider(new MailActionProvider @framework, @conf)
   
   # Create a instance of my plugin
   plugin = new Mail 
@@ -71,7 +71,7 @@ module.exports = (env) ->
           token: match
           nextInput: input.substring(match.length)
           actionHandler: new MailActionHandler(
-            @framework, @optionsTokens
+            @framework, optionsTokens
           )
         }
       else
@@ -83,15 +83,17 @@ module.exports = (env) ->
     constructor: (@framework, @optionsTokens) ->
 
     executeAction: (simulate, context) ->
+      console.log @optionsTokens
       mailOptions = {}
-      Q.all( 
-        (for name, tokens of @optionsTokens
-            do (name, tokens) => 
-              @framework.variableManager.evaluateStringExpression(tokens).then( (value) =>
-                @mailOptions[name] = value
-              )
-        )
-      ).then( =>
+      awaiting = []
+      for name, tokens of @optionsTokens
+        do (name, tokens) => 
+          p = @framework.variableManager.evaluateStringExpression(tokens).then( (value) =>
+            mailOptions[name] = value
+          )
+          awaiting.push p
+      Q.all(awaiting).then( =>
+        console.log mailOptions
         if simulate
           # just return a promise fulfilled with a description about what we would do.
           return __(
@@ -99,7 +101,7 @@ module.exports = (env) ->
             mailOptions.to, mailOptions.message)
         else
           return Q.ninvoke(mailTransport, "sendMail", mailOptions).then( (statusCode) => 
-            __("mail sent with statuscode: %s", statusCode) 
+            __("mail sent with status: %s", statusCode.message) 
           )
       )
 
