@@ -1,20 +1,21 @@
-{ "name": "pimatic-plugin-template",
-  "description": "The plugin description",
-  "author": "Your Name <you@example.com> (http://your-website)",
-  "main": "my-plugin",
+{
+  "name": "pimatic-mail",
+  "description": "Send mails from rule actions",
+  "author": "Oliver Schneider <oliverschneider89+pimatic@gmail.com> (http://sweetpi.de)",
+  "main": "mail",
   "files": [
-    "my-plugin.coffee",
+    "mail.coffee",
     "README.md",
-    "my-plugin-config-schema.coffee"
+    "mail-config-schema.coffee"
   ],
   "version": "0.7.0",
-  "homepage": "http://your-plugin-website",
-  "private": true,
+  "homepage": "http://pimatic.org",
   "repository": {
     "type": "git",
-    "url": "git://github.com/pimatic/pimatic-plugin-template.git"
+    "url": "git://github.com/pimatic/pimatic-mail.git"
   },
   "dependencies": {
+    "nodemailer": "~0.6.2"
   },
   "peerDependencies": {
     "pimatic": "0.7.*"
