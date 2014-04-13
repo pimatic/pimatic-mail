@@ -15,7 +15,7 @@ module.exports = (env) ->
   #Matcher to match the input predicate and supply autocomplete
   M = env.matcher
 
-  nodemailer = require("nodemailer");
+  nodemailer = require "nodemailer"
 
   mailTransport = null
 
