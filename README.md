@@ -11,12 +11,12 @@ You can load the backend by editing your `config.json` to include:
       "plugin": "mail",
       "transport": "SMTP",
       "transportOptions": {
-        service: "Gmail", // sets automatically host, port and connection security settings
-        auth: {
-            user: "gmail.user@gmail.com",
-            pass: "userpass"
+        "service": "Gmail", // sets automatically host, port and connection security settings
+        "auth": {
+            "user": "gmail.user@gmail.com",
+            "pass": "userpass"
         }
-      }
+      },
       "to": "gmail.user@gmail.com"
     }
 
