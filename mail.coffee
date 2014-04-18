@@ -83,7 +83,6 @@ module.exports = (env) ->
     constructor: (@framework, @optionsTokens) ->
 
     executeAction: (simulate, context) ->
-      console.log @optionsTokens
       mailOptions = {}
       awaiting = []
       for name, tokens of @optionsTokens
@@ -93,7 +92,6 @@ module.exports = (env) ->
           )
           awaiting.push p
       Q.all(awaiting).then( =>
-        console.log mailOptions
         if simulate
           # just return a promise fulfilled with a description about what we would do.
           return __(

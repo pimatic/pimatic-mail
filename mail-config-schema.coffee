@@ -13,11 +13,11 @@ module.exports =
   from: 
     doc: "default from e-mail address"
     format: String
-    default: "pimatic <no-replay@pimatic.org>"
+    default: "pimatic <no-reply@pimatic.org>"
   to:
     doc: "default to e-mail address"
     format: String
-    default: "noboy <nobody@example.com>"
+    default: "nobody <nobody@example.com>"
   subject: 
     doc: "default e-mail subject"
     format: String
