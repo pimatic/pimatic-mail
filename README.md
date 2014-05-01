@@ -29,4 +29,4 @@ Currently you can send mail message via action handler within rules.
 Example:
 --------
 
-    if it is 08:00 send mail to: "gmail.user@gmail.com" subject:"Good morning!" text:"Good morning Dave!"
+    IF it is 08:00 THEN send mail to: "gmail.user@gmail.com" subject:"Good morning!" text:"Good morning Dave!"
