@@ -63,10 +63,10 @@ module.exports = (env) ->
           next = m.match(" #{opt}:").matchStringWithVars( (m, tokens) =>
             optionsTokens[opt] = tokens
           )
-          if next.hadMatches() then m = next
+          if next.hadMatch() then m = next
 
-      if m.hadMatches()
-        match = m.getLongestFullMatch()
+      if m.hadMatch()
+        match = m.getFullMatch()
         return {
           token: match
           nextInput: input.substring(match.length)
