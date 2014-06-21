@@ -14,6 +14,7 @@
     "type": "git",
     "url": "git://github.com/pimatic/pimatic-mail.git"
   },
+  "configSchema": "mail-config-schema.coffee",
   "dependencies": {
     "nodemailer": "~0.6.2"
   },

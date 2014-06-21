@@ -1,28 +1,32 @@
-# #mmail plugin configuration options
-
-module.exports =
-  # https://www.npmjs.org/package/nodemailer
-  transport:
-    doc: "The transport to use for nodemailer"
-    format: ["SMTP", "SES", "sendmail", "PICKUP", "direct", "stub"]
-    default: "sendmail"
-  transportOptions:
-    doc: "The Transport options"
-    format: Object
-    default: {}
-  from: 
-    doc: "default from e-mail address"
-    format: String
-    default: "pimatic <no-reply@pimatic.org>"
-  to:
-    doc: "default to e-mail address"
-    format: String
-    default: "nobody <nobody@example.com>"
-  subject: 
-    doc: "default e-mail subject"
-    format: String
-    default: "pimatic message"
-  text: 
-    doc: "default e-mail text"
-    format: String
-    default: "42"
+# #mail plugin configuration options
+module.exports = {
+  title: "mail config"
+  type: "object"
+  properties:
+    # https://www.npmjs.org/package/nodemailer
+    transport:
+      description: "The transport to use for nodemailer"
+      type: "string"
+      enum: ["SMTP", "SES", "sendmail", "PICKUP", "direct", "stub"]
+      default: "sendmail"
+    transportOptions:
+      description: "The Transport options"
+      tyoe: "object"
+      default: {}
+    from: 
+      description: "default from e-mail address"
+      type: "string"
+      default: "pimatic <no-reply@pimatic.org>"
+    to:
+      description: "default to e-mail address"
+      type: "string"
+      default: "nobody <nobody@example.com>"
+    subject: 
+      description: "default e-mail subject"
+      type: "string"
+      default: "pimatic message"
+    text: 
+      description: "default e-mail text"
+      type: "string"
+      default: "42"
+}

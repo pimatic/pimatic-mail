@@ -3,16 +3,8 @@
 
 module.exports = (env) ->
 
-  # Require [convict](https://github.com/mozilla/node-convict) for config validation.
-  convict = env.require "convict"
-
-  # Require the [Q](https://github.com/kriskowal/q) promise library
   Q = env.require 'q'
-
-  # Require the [cassert library](https://github.com/rhoot/cassert).
   assert = env.require 'cassert'
-
-  #Matcher to match the input predicate and supply autocomplete
   M = env.matcher
 
   nodemailer = require "nodemailer"
@@ -23,27 +15,21 @@ module.exports = (env) ->
   class Mail extends env.plugins.Plugin
 
     # ####init()
-    init: (app, @framework, config) =>
-      # Require your config shema
-      @conf = convict require("./mail-config-schema")
-      # and validate the given config.
-      @conf.load config
-      @conf.validate()
-      # You can use `@confmyOption"` to get a config option.
+    init: (app, @framework, @config) =>
       
       mailTransport = nodemailer.createTransport(
-        @conf.get("transport"), 
-        @conf.get("transportOptions")
+        config.transport 
+        config.transportOptions
       )
       
-      @framework.ruleManager.addActionProvider(new MailActionProvider @framework, @conf)
+      @framework.ruleManager.addActionProvider(new MailActionProvider @framework, config)
   
   # Create a instance of my plugin
   plugin = new Mail 
 
   class MailActionProvider extends env.actions.ActionProvider
   
-    constructor: (@framework, @conf) ->
+    constructor: (@framework, @config) ->
 
     parseAction: (input, context) =>
 
@@ -59,7 +45,7 @@ module.exports = (env) ->
 
       for opt in options
         do (opt) =>
-          optionsTokens[opt] = strToTokens @conf.get(opt)
+          optionsTokens[opt] = strToTokens @config[opt]
           next = m.match(" #{opt}:").matchStringWithVars( (m, tokens) =>
             optionsTokens[opt] = tokens
           )
