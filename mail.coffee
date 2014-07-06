@@ -3,7 +3,7 @@
 
 module.exports = (env) ->
 
-  Q = env.require 'q'
+  Promise = env.require 'bluebird'
   assert = env.require 'cassert'
   M = env.matcher
 
@@ -21,6 +21,7 @@ module.exports = (env) ->
         config.transport 
         config.transportOptions
       )
+      Promise.promisifyAll(mailTransport)
       
       @framework.ruleManager.addActionProvider(new MailActionProvider @framework, config)
   
@@ -77,14 +78,14 @@ module.exports = (env) ->
             mailOptions[name] = value
           )
           awaiting.push p
-      Q.all(awaiting).then( =>
+      Promise.all(awaiting).then( =>
         if simulate
           # just return a promise fulfilled with a description about what we would do.
           return __(
             "would send mail to \"%s\" with message \"%s\"", 
             mailOptions.to, mailOptions.message)
         else
-          return Q.ninvoke(mailTransport, "sendMail", mailOptions).then( (statusCode) => 
+          return mailTransport.sendMailAsync(mailOptions).then( (statusCode) => 
             __("mail sent with status: %s", statusCode.message) 
           )
       )
