@@ -6,7 +6,8 @@
   "files": [
     "mail.coffee",
     "README.md",
-    "mail-config-schema.coffee"
+    "mail-config-schema.coffee",
+    "icon.svg"
   ],
   "version": "0.8.0",
   "homepage": "http://pimatic.org",
@@ -14,10 +15,14 @@
     "type": "git",
     "url": "git://github.com/pimatic/pimatic-mail.git"
   },
+  "icon": "icon.svg",
   "configSchema": "mail-config-schema.coffee",
   "dependencies": {
     "nodemailer": "~0.6.2"
   },
+  "keywords": [
+    "pimatic", "actions", "mail", "notification", "email"
+  ],
   "peerDependencies": {
     "pimatic": "0.8.*"
   },
