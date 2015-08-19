@@ -18,7 +18,7 @@ module.exports = (env) ->
     init: (app, @framework, @config) =>
       
       mailTransport = nodemailer.createTransport(
-        config.transport 
+        config.transport
         config.transportOptions
       )
       Promise.promisifyAll(mailTransport)
@@ -41,12 +41,15 @@ module.exports = (env) ->
         .match('send ', optional: yes)
         .match(['mail'])
 
-      options = ["from", "to", "subject", "text"]
+      # Note html needs evaluated before text option
+      options = ["from", "to", "subject", "html", "text", "file"]
       optionsTokens = {}
 
       for opt in options
         do (opt) =>
-          optionsTokens[opt] = strToTokens @config[opt]
+          if @config.hasOwnProperty(opt) and (opt isnt "text" or optionsTokens.hasOwnProperty("html"))
+            optionsTokens[opt] = strToTokens @config[opt]
+
           next = m.match(" #{opt}:").matchStringWithVars( (m, tokens) =>
             optionsTokens[opt] = tokens
           )
@@ -75,7 +78,12 @@ module.exports = (env) ->
       for name, tokens of @optionsTokens
         do (name, tokens) => 
           p = @framework.variableManager.evaluateStringExpression(tokens).then( (value) =>
-            mailOptions[name] = value
+            unless name is "file"
+              mailOptions[name] = value
+            else
+              mailOptions.attachments = [
+                {   filePath: value }
+              ]
           )
           awaiting.push p
       Promise.all(awaiting).then( =>
