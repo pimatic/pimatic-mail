@@ -32,13 +32,13 @@ Usage
 Currently, you can send mail messages as part of rule actions. The "send mail" action supports the following 
 modifiers:
 
-* **to**: the mail recipient's address
-* **from**: the mail sender's address
-* **text**: an ASCII test string to be used as e-mail body text. If, both, **text** and **html** modifiers are 
- absent, the default text will be used as defined by the the plugin configuration.
-* **html**: a HTML text string to be used as e-mail HTML body text. Id, both, **text** and **html** modifiers are 
- present, an e-mail with a multi-part body will be generated containing the plain text and the HTML text.
-* **file**: a path to a file which will be attached to the e-mail. 
+* **to**: The mail recipient's address
+* **from**: The mail sender's address
+* **text**: An Unicode string containing the plaintext version of the message body. If, both, **text** and **html** modifiers are 
+ absent, the default text will be used as defined by the plugin configuration
+* **html**: An Unicode string containing the HTML version of the message body. If, both, **text** and **html** modifiers are 
+ present, an e-mail with a multi-part body will be generated containing the plain text and the HTML text
+* **file**: A path to a file which will be attached to the mail
 
 
 Example
