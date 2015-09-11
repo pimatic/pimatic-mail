@@ -24,7 +24,39 @@ You can load the backend by editing your `config.json` to include:
 
 in the `plugins` section. For all configuration options see [mail-config-schema](mail-config-schema.html). The 
  transport options are transport dependent and listed at 
- [nodemailer v0.7](https://github.com/andris9/Nodemailer/blob/0.7/README.md),
+ [nodemailer v0.7](https://github.com/andris9/Nodemailer/blob/0.7/README.md).
+ 
+Advanced Configuration Example for GMX
+--------------------------------------
+
+If your mail service provider is not on nodemailer's list of [well known services]
+ (https://github.com/andris9/Nodemailer/blob/0.7/README.md#well-known-services-for-smtp) an advanced transport 
+ configuration is required. In the following an example configuration for GMX is provide which deals 
+ with some issues which may also apply to other mail service providers:
+* The GMX SMTP mailer is picky about encryption ciphers used and, thus, the cipher suite used for pimatic
+  must be set to 'SSLv3'
+* The "from" address must be set explicitly to your mailbox address. Otherwise, the mail will be rejected 
+  with error 550 which is provides a measure against misuse of mail addresses. You should set 
+  the 'from' address as part of the plugin configuration.
+
+    {
+      "plugin": "mail",
+      "transport": "SMTP",
+      "transportOptions": {
+        "host": "mail.gmx.com",
+        "port": 587,
+        "tls": {
+          "ciphers": "SSLv3"
+        },
+        "auth": {
+          "user": "Zaphod.Beeblebrox@gmx.de",
+          "pass": "TopSecret"
+        },
+        "maxConnections": 5
+      },
+      "from": "Zaphod.Beeblebrox@gmx.de"
+    }	
+
 
 Usage
 -----
@@ -32,14 +64,16 @@ Usage
 Currently, you can send mail messages as part of rule actions. The "send mail" action supports the following 
 modifiers:
 
-* **to**: The mail recipient's address
-* **from**: The mail sender's address
-* **text**: An Unicode string containing the plaintext version of the message body. If, both, **text** and **html** modifiers are 
+* **to:** The mail recipient's address
+* **from:** The mail sender's address
+* **text:** An Unicode string containing the plaintext version of the message body. If, both, **text** and **html** modifiers are 
  absent, the default text will be used as defined by the plugin configuration
-* **html**: An Unicode string containing the HTML version of the message body. If, both, **text** and **html** modifiers are 
+* **html:** An Unicode string containing the HTML version of the message body. If, both, **text** and **html** modifiers are 
  present, an e-mail with a multi-part body will be generated containing the plain text and the HTML text
-* **file**: A path to a file which will be attached to the mail
+* **file:** A path to a file which will be attached to the mail
 
+Generally, each modifier can only by applied once per rule. For **to:** and **file:** modifiers, multiple occurrences 
+ are supported.
 
 Example
 -------
