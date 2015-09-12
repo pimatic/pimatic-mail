@@ -31,14 +31,16 @@ Advanced Configuration Example for GMX
 
 If your mail service provider is not on nodemailer's list of [well known services]
  (https://github.com/andris9/Nodemailer/blob/0.7/README.md#well-known-services-for-smtp) an advanced transport 
- configuration is required. In the following an example configuration for GMX is provided. This configuration deals 
+ configuration is required. Below, an example configuration for GMX is provided. This configuration deals 
  with some issues which may also apply to other mail service providers:
+ 
 * Host and Port of the mail service. You can obtain this information from your mail service provider.
 * The GMX SMTP mailer is picky about encryption ciphers used and, thus, the cipher suite used for pimatic
   must be set to 'SSLv3'
 * The "from" address must be set explicitly to your mailbox address. Otherwise, the mail will be rejected 
   with error 550 which is provides a measure against misuse of mail addresses. You should set 
   the 'from' address as part of the plugin configuration.
+
 
     {
       "plugin": "mail",
