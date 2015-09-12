@@ -41,6 +41,7 @@ If your mail service provider is not on nodemailer's list of [well known service
   with error 550 which is provides a measure against misuse of mail addresses. You should set 
   the 'from' address as part of the plugin configuration.
 
+Example:
 
     {
       "plugin": "mail",
@@ -79,8 +80,8 @@ modifiers:
 Generally, each modifier can only by applied once per mail action. For **to:** and **file:** modifiers, multiple 
  occurrences are supported.
 
-Example
--------
+Example Rule
+------------
 
     IF it is 08:00 THEN send mail to:"gmail.user@gmail.com" subject:"Good morning!" text:"Good morning Dave!"
     
