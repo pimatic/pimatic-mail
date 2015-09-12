@@ -31,8 +31,9 @@ Advanced Configuration Example for GMX
 
 If your mail service provider is not on nodemailer's list of [well known services]
  (https://github.com/andris9/Nodemailer/blob/0.7/README.md#well-known-services-for-smtp) an advanced transport 
- configuration is required. In the following an example configuration for GMX is provide which deals 
+ configuration is required. In the following an example configuration for GMX is provided. This configuration deals 
  with some issues which may also apply to other mail service providers:
+* Host and Port of the mail service. You can obtain this information from your mail service provider.
 * The GMX SMTP mailer is picky about encryption ciphers used and, thus, the cipher suite used for pimatic
   must be set to 'SSLv3'
 * The "from" address must be set explicitly to your mailbox address. Otherwise, the mail will be rejected 
@@ -61,24 +62,26 @@ If your mail service provider is not on nodemailer's list of [well known service
 Usage
 -----
 
-Currently, you can send mail messages as part of rule actions. The "send mail" action supports the following 
+You can send mail messages as part of rule actions. The "send mail" action supports the following 
 modifiers:
 
 * **to:** The mail recipient's address
 * **from:** The mail sender's address
-* **text:** An Unicode string containing the plaintext version of the message body. If, both, **text** and **html** modifiers are 
- absent, the default text will be used as defined by the plugin configuration
-* **html:** An Unicode string containing the HTML version of the message body. If, both, **text** and **html** modifiers are 
- present, an e-mail with a multi-part body will be generated containing the plain text and the HTML text
+* **text:** An Unicode string containing the plaintext version of the message body. If, both, **text** 
+ and **html** modifiers are absent, the default text will be used as defined by the plugin configuration
+* **html:** An Unicode string containing the HTML version of the message body. If, both, **text** 
+ and **html** modifiers are present, an e-mail with a multi-part body will be generated containing the 
+ plain text and the HTML text
 * **file:** A path to a file which will be attached to the mail
 
-Generally, each modifier can only by applied once per rule. For **to:** and **file:** modifiers, multiple occurrences 
- are supported.
+Generally, each modifier can only by applied once per mail action. For **to:** and **file:** modifiers, multiple 
+ occurrences are supported.
 
 Example
 -------
 
     IF it is 08:00 THEN send mail to:"gmail.user@gmail.com" subject:"Good morning!" text:"Good morning Dave!"
+    
 
 Credits
 -------
