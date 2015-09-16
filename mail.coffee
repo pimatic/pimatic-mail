@@ -20,7 +20,7 @@ module.exports = (env) ->
 
       mailTransport = nodemailer.createTransport(
         config.transport
-        config.transportOptions
+        _.clone(config.transportOptions, true)
       )
       Promise.promisifyAll(mailTransport)
 
