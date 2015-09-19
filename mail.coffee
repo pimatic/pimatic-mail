@@ -61,7 +61,7 @@ module.exports = (env) ->
         next = null
         m.match(mailOptionsPatterns, (m, matchedOptionPattern) =>
           m.matchStringWithVars( (m, tokens) =>
-            opt = matchedOptionPattern.replace(/^[\s\uFEFF\xA0]+|[\:]+$|[\s\uFEFF\xA0]+$/g, '')
+            opt = matchedOptionPattern.replace(/^\s+|\:+$/g, '')
             optionsSet.push opt
             unless opt is "file" or opt is "to"
               optionsTokens[opt] = tokens
