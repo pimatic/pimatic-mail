@@ -58,18 +58,22 @@ module.exports = (env) ->
       condition = true
       index = 0
       while condition
-        next = m.match(mailOptionsPatterns).matchStringWithVars( (m, tokens) =>
-          matchedOptionPattern = m.elements[m.elements.length - 2].match;
-          opt = matchedOptionPattern.replace(/^[\s\uFEFF\xA0]+|[\:]+$|[\s\uFEFF\xA0]+$/g, '')
-          optionsSet.push opt
-          unless opt is "file" or opt is "to"
-            optionsTokens[opt] = tokens
-            # remove matched pattern from mailOptionsPatterns as all options except file may only occur once
-            mailOptionsPatterns = mailOptionsPatterns.filter (item) -> item isnt matchedOptionPattern
-          else
-            optionsTokens[opt + index++] = tokens
+        next = null
+        m.match(mailOptionsPatterns, (m, matchedOptionPattern) =>
+          m.matchStringWithVars( (m, tokens) =>
+            opt = matchedOptionPattern.replace(/^[\s\uFEFF\xA0]+|[\:]+$|[\s\uFEFF\xA0]+$/g, '')
+            optionsSet.push opt
+            unless opt is "file" or opt is "to"
+              optionsTokens[opt] = tokens
+              # remove matched pattern from mailOptionsPatterns as all options except file may only occur once
+              mailOptionsPatterns = mailOptionsPatterns.filter (item) -> item isnt matchedOptionPattern
+            else
+              # we could make this an array...
+              optionsTokens[opt + index++] = tokens
+            next = m
+          )
         )
-        condition = next.hadMatch()
+        condition = next?
         m = next if condition
 
       if m.hadMatch()
