@@ -18,7 +18,7 @@
   "icon": "icon.svg",
   "configSchema": "mail-config-schema.coffee",
   "dependencies": {
-    "nodemailer": "~0.6.2"
+    "nodemailer": "~0.7.1"
   },
   "keywords": [
     "pimatic",
