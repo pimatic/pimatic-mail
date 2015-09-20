@@ -53,20 +53,19 @@ module.exports = (env) ->
       # may occur multiple times as it is the case for "to" and "file"
       mailOptionsPatterns = []
       for key in @mailOptionKeys
-        mailOptionsPatterns.push " #{key}:"
+        mailOptionsPatterns.push [key, " #{key}:"]
         
       condition = true
       index = 0
       while condition
         next = null
-        m.match(mailOptionsPatterns, (m, matchedOptionPattern) =>
+        m.match(mailOptionsPatterns, (m, opt) =>
           m.matchStringWithVars( (m, tokens) =>
-            opt = matchedOptionPattern.replace(/^\s+|\:+$/g, '')
             optionsSet.push opt
             unless opt is "file" or opt is "to"
               optionsTokens[opt] = tokens
               # remove matched pattern from mailOptionsPatterns as all options except file may only occur once
-              mailOptionsPatterns = mailOptionsPatterns.filter (item) -> item isnt matchedOptionPattern
+              mailOptionsPatterns = mailOptionsPatterns.filter (item) -> item[0] isnt opt
             else
               # we could make this an array...
               optionsTokens[opt + index++] = tokens
