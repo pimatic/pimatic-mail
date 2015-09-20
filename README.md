@@ -29,10 +29,10 @@ in the `plugins` section. For all configuration options see [mail-config-schema]
 Advanced Configuration Example for GMX
 --------------------------------------
 
-If your mail service provider is not on nodemailer's list of [well known services]
- (https://github.com/andris9/Nodemailer/blob/0.7/README.md#well-known-services-for-smtp) an advanced transport 
- configuration is required. Below, an example configuration for GMX is provided. This configuration deals 
- with some issues which may also apply to other mail service providers:
+If your mail service provider is not on nodemailer's list of
+ [well known services](https://github.com/andris9/Nodemailer/blob/0.7/README.md#well-known-services-for-smtp)
+ an advanced transport configuration is required. Below, an example configuration for GMX is provided. This
+ configuration deals with some issues which may also apply to other mail service providers:
  
 * Host and Port of the mail service. You can obtain this information from your mail service provider.
 * The GMX SMTP mailer is picky about encryption ciphers used and, thus, the cipher suite used for pimatic
