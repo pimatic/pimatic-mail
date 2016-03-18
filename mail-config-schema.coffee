@@ -11,7 +11,7 @@ module.exports = {
       default: "sendmail"
     transportOptions:
       description: "The Transport options"
-      tyoe: "object"
+      type: "object"
       default: {}
     from: 
       description: "default from e-mail address"
