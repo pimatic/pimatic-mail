@@ -19,12 +19,12 @@ module.exports = (env) ->
     init: (app, @framework, @config) =>
 
       mailTransport = nodemailer.createTransport(
-        config.transport
-        _.clone(config.transportOptions, true)
+        @config.transport
+        _.clone(@config.transportOptions, true)
       )
       Promise.promisifyAll(mailTransport)
 
-      @framework.ruleManager.addActionProvider(new MailActionProvider @framework, config)
+      @framework.ruleManager.addActionProvider(new MailActionProvider @framework, @config)
 
   # Create a instance of my plugin
   plugin = new Mail
@@ -33,7 +33,7 @@ module.exports = (env) ->
 
     constructor: (@framework, @config) ->
       @mailOptionKeys = ["from", "to", "subject", "html", "text", "file"]
-      @configWithDefaults = _.assign config.__proto__, config
+      @configWithDefaults = _.assign @config.__proto__, @config
 
     parseAction: (input, context) =>
 

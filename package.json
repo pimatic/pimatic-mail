@@ -2,12 +2,14 @@
   "name": "pimatic-mail",
   "description": "Send mails from rule actions",
   "author": "Oliver Schneider <oliverschneider89+pimatic@gmail.com> (http://sweetpi.de)",
+  "license": "GPL-2.0",
   "main": "mail.coffee",
   "files": [
     "mail.coffee",
     "README.md",
     "mail-config-schema.coffee",
-    "icon.svg"
+    "icon.svg",
+    "LICENSE"
   ],
   "version": "0.8.5",
   "homepage": "http://pimatic.org",
@@ -28,7 +30,7 @@
     "email"
   ],
   "peerDependencies": {
-    "pimatic": "0.8.*"
+    "pimatic": ">=0.8.0 <1.0.0"
   },
   "engines": {
     "node": ">0.8.x",
