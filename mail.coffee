@@ -64,7 +64,8 @@ module.exports = (env) ->
             optionsSet.push opt
             unless opt is "file" or opt is "to"
               optionsTokens[opt] = tokens
-              # remove matched pattern from mailOptionsPatterns as all options except file may only occur once
+              # remove matched pattern from mailOptionsPatterns as all options except file 
+              # may only occur once
               mailOptionsPatterns = mailOptionsPatterns.filter (item) -> item[0] isnt opt
             else
               # we could make this an array...
